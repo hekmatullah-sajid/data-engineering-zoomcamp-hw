@@ -39,11 +39,11 @@ What is version of the package _wheel_ ?
 
 Run Postgres and load data as shown in the videos We'll use the green taxi trips from September 2019:
 
-wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green\_tripdata\_2019-09.csv.gz
+wget https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz
 
 You will also need the dataset with zones:
 
-wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+\_zone\_lookup.csv
+wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
 
 Download this data and put it into Postgres (with jupyter notebooks or with a pipeline)
 
@@ -53,7 +53,7 @@ How many taxi trips were totally made on September 18th 2019?
 
 Tip: started and finished on 2019-09-18.
 
-Remember that lpep\_pickup\_datetime and lpep\_dropoff\_datetime columns are in the format timestamp (date and hour+min+sec) and not in date.
+Remember that lpep_pickup_datetime and lpep_dropoff_datetime columns are in the format timestamp (date and hour+min+sec) and not in date.
 
 - 15767
 - **15612**
@@ -63,7 +63,7 @@ Remember that lpep\_pickup\_datetime and lpep\_dropoff\_datetime columns are in 
 **Query:**
 
 ```
-SELECT COUNT(1) FROM green\_taxi\_trips WHERE DATE(lpep\_pickup\_datetime) = '2019-09-18' AND DATE(lpep\_dropoff\_datetime) = '2019-09-18'
+SELECT COUNT(1) FROM green_taxi_trips WHERE DATE(lpep_pickup_datetime) = '2019-09-18' AND DATE(lpep_dropoff_datetime) = '2019-09-18'
 ```
 
 **Question 4. Largest trip for each day**
@@ -78,17 +78,17 @@ Which was the pick up day with the largest trip distance Use the pick up time fo
 **Query:** 
 
 ```
-SELECT trip\_distance, lpep\_pickup\_datetime
-FROM green\_taxi\_trips
-ORDER BY trip\_distance DESC
+SELECT trip_distance, lpep_pickup_datetime
+FROM green_taxi_trips
+ORDER BY trip_distance DESC
 LIMIT 1;
 ```
 
 **Question 5. The number of passengers**
 
-Consider lpep\_pickup\_datetime in '2019-09-18' and ignoring Borough has Unknown
+Consider lpep_pickup_datetime in '2019-09-18' and ignoring Borough has Unknown
 
-Which were the 3 pick up Boroughs that had a sum of total\_amount superior to 50000?
+Which were the 3 pick up Boroughs that had a sum of total_amount superior to 50000?
 
 - **"Brooklyn" "Manhattan" "Queens"**
 - "Bronx" "Brooklyn" "Manhattan"
@@ -98,13 +98,13 @@ Which were the 3 pick up Boroughs that had a sum of total\_amount superior to 50
 **Query:**
 
 ```
-SELECT tz."Borough", SUM(gt.total\_amount) AS count\_num
-FROM green\_taxi\_trips AS gt
-INNER JOIN taxi\_zones AS tz ON gt."PULocationID" = tz."LocationID"
-WHERE DATE(gt.lpep\_pickup\_datetime) = '2019-09-18'
+SELECT tz."Borough", SUM(gt.total_amount) AS count_num
+FROM green_taxi_trips AS gt
+INNER JOIN taxi_zones AS tz ON gt."PULocationID" = tz."LocationID"
+WHERE DATE(gt.lpep_pickup_datetime) = '2019-09-18'
 GROUP BY tz."Borough"
-HAVING SUM(gt.total\_amount) \> 50000
-ORDER BY count\_num DESC;
+HAVING SUM(gt.total_amount) \> 50000
+ORDER BY count_num DESC;
 ```
 
 **Question 6. Largest tip**
@@ -121,19 +121,19 @@ Note: it's not a typo, it's tip , not trip
 **Query:**
 
 ```
-WITH pickups\_astoria AS
+WITH pickups_astoria AS
 (
-SELECT \*
-FROM green\_taxi\_trips AS gt
-INNER JOIN taxi\_zones AS tz ON gt."PULocationID" = tz."LocationID"
+SELECT tip_amount, "DOLocationID", lpep_pickup_datetime
+FROM green_taxi_trips AS gt
+INNER JOIN taxi_zones AS tz ON gt."PULocationID" = tz."LocationID"
 WHERE tz."Zone" = 'Astoria'
 )
-SELECT tz."Zone", gt.tip\_amount
-FROM pickups\_astoria AS gt
-INNER JOIN taxi\_zones AS tz ON gt."DOLocationID" = tz."LocationID"
-WHERE EXTRACT(MONTH FROM gt.lpep\_pickup\_datetime) = 9
-AND EXTRACT(YEAR FROM gt.lpep\_pickup\_datetime) = 2019
-ORDER BY gt.tip\_amount DESC
+SELECT tz."Zone", gt.tip_amount
+FROM pickups_astoria AS gt
+INNER JOIN taxi_zones AS tz ON gt."DOLocationID" = tz."LocationID"
+WHERE EXTRACT(MONTH FROM gt.lpep_pickup_datetime) = 9
+AND EXTRACT(YEAR FROM gt.lpep_pickup_datetime) = 2019
+ORDER BY gt.tip_amount DESC
 LIMIT 1;
 ```
 
@@ -164,49 +164,49 @@ symbols:
 
 Terraform will perform the following actions:
 
-# google\_bigquery\_dataset.demo\_dataset will be created
+# google_bigquery_dataset.demo_dataset will be created
 
-+ resource "google\_bigquery\_dataset" "demo\_dataset" {
++ resource "google_bigquery_dataset" "demo_dataset" {
 
-+ creation\_time = (known after apply)
++ creation_time = (known after apply)
 
-+ dataset\_id = "IaC\_dataset"
++ dataset_id = "IaC_dataset"
 
-+ default\_collation = (known after apply)
++ default_collation = (known after apply)
 
-+ delete\_contents\_on\_destroy = false
++ delete_contents_on_destroy = false
 
-+ effective\_labels = (known after apply)
++ effective_labels = (known after apply)
 
 + etag = (known after apply)
 
 + id = (known after apply)
 
-+ is\_case\_insensitive = (known after apply)
++ is_case_insensitive = (known after apply)
 
-+ last\_modified\_time = (known after apply)
++ last_modified_time = (known after apply)
 
 + location = "US"
 
-+ max\_time\_travel\_hours = (known after apply)
++ max_time_travel_hours = (known after apply)
 
 + project = "hs-dez-gcp-2024-project"
 
-+ self\_link = (known after apply)
++ self_link = (known after apply)
 
-+ storage\_billing\_model = (known after apply)
++ storage_billing_model = (known after apply)
 
-+ terraform\_labels = (known after apply)
++ terraform_labels = (known after apply)
 
 }
 
-# google\_storage\_bucket.demo-bucket will be created
+# google_storage_bucket.demo-bucket will be created
 
-+ resource "google\_storage\_bucket" "demo-bucket" {
++ resource "google_storage_bucket" "demo-bucket" {
 
-+ effective\_labels = (known after apply)
++ effective_labels = (known after apply)
 
-+ force\_destroy = true
++ force_destroy = true
 
 + id = (known after apply)
 
@@ -216,19 +216,19 @@ Terraform will perform the following actions:
 
 + project = (known after apply)
 
-+ public\_access\_prevention = (known after apply)
++ public_access_prevention = (known after apply)
 
-+ self\_link = (known after apply)
++ self_link = (known after apply)
 
-+ storage\_class = "STANDARD"
++ storage_class = "STANDARD"
 
-+ terraform\_labels = (known after apply)
++ terraform_labels = (known after apply)
 
-+ uniform\_bucket\_level\_access = (known after apply)
++ uniform_bucket_level_access = (known after apply)
 
 + url = (known after apply)
 
-+ lifecycle\_rule {
++ lifecycle_rule {
 
 + action {
 
@@ -240,13 +240,13 @@ Terraform will perform the following actions:
 
 + age = 1
 
-+ matches\_prefix = []
++ matches_prefix = []
 
-+ matches\_storage\_class = []
++ matches_storage_class = []
 
-+ matches\_suffix = []
++ matches_suffix = []
 
-+ with\_state = (known after apply)
++ with_state = (known after apply)
 
 }
 
@@ -264,13 +264,13 @@ Only 'yes' will be accepted to approve.
 
 Enter a value: yes
 
-google\_bigquery\_dataset.demo\_dataset: Creating...
+google_bigquery_dataset.demo_dataset: Creating...
 
-google\_storage\_bucket.demo-bucket: Creating...
+google_storage_bucket.demo-bucket: Creating...
 
-google\_bigquery\_dataset.demo\_dataset: Creation complete after 1s [id=projects/hs-dez-gcp-2024-project/datasets/IaC\_dataset]
+google_bigquery_dataset.demo_dataset: Creation complete after 1s [id=projects/hs-dez-gcp-2024-project/datasets/IaC_dataset]
 
-google\_storage\_bucket.demo-bucket: Creation complete after 3s [id=iac-hs-dez-bucket-2024]
+google_storage_bucket.demo-bucket: Creation complete after 3s [id=iac-hs-dez-bucket-2024]
 
 Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
 ```
