@@ -18,8 +18,9 @@ def transform(data, *args, **kwargs):
     print(f"There are {data['trip_distance'].isin([0]).sum()} records with zero trip distance.")
 
     # Removing records with zero passengers and zero trip distance
-    data = data[data['passenger_count']>0]
-    data = data[data['trip_distance']>0]
+    data = data[(data['passenger_count'] > 0) | (data['passenger_count'].isnull())]
+
+    data = data[data['trip_distance']!=0]
 
     # Creating a date column for partitioning by date
     data['lpep_pickup_date'] = data['lpep_pickup_datetime'].dt.date
