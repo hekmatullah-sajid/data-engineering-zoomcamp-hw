@@ -39,6 +39,7 @@ Question 1: What is count of records for the 2022 Green Taxi Data??
 
 ## Answer 1:
 > The correct option is 840,402.
+
 > query:
 ```
 SELECT COUNT(1) FROM `hs-dez-taxi-trip-data-project.ny_taxi.green_taxi_trips_external`;
@@ -56,6 +57,7 @@ What is the estimated amount of data that will be read when this query is execut
 
 ## Answer 2:
 > The correct option is (0 MB for the External Table and 6.41MB for the Materialized Table).
+
 > queries:
 ```
 SELECT COUNT(DISTINCT PULocationID) FROM `hs-dez-taxi-trip-data-project.ny_taxi.green_taxi_trips_external`;
@@ -73,6 +75,7 @@ How many records have a fare_amount of 0?
 
 ## Answer 3:
 > The correct option is (1,622).
+
 > query:
 ```
 SELECT COUNT(1) FROM `hs-dez-taxi-trip-data-project.ny_taxi.green_taxi_trips_non_partitioned` WHERE fare_amount = 0;
@@ -87,6 +90,7 @@ What is the best strategy to make an optimized table in Big Query if your query 
 
 ## Answer 4:
 > The correct option is (Partition by lpep_pickup_datetime  Cluster on PUlocationID).
+
 > query:
 ```
 CREATE OR REPLACE TABLE `hs-dez-taxi-trip-data-project.ny_taxi.green_taxi_trips_partitoned_clustered`
@@ -110,6 +114,7 @@ Choose the answer which most closely matches.</br>
 
 ## Answer 5:
 > The correct option is (12.82 MB for non-partitioned table and 1.12 MB for the partitioned table).
+
 > queries:
 ```
 SELECT DISTINCT(PULocationID) 
@@ -132,7 +137,9 @@ Where is the data stored in the External Table you created?
 
 ## Answer 6:
 > The correct option is (GCP Bucket).
+
 > Note:
+
 > In BigQuery, external tables do not store data in BigQuery itself. Rather, external tables are virtual representations of data stored in external storage systems like Google Cloud Storage, Google Drive, BigTable, or Cloud SQL. 
 > For the mentioned table, the data is Parquet files in the GCS bucket.
 
@@ -143,7 +150,9 @@ It is best practice in Big Query to always cluster your data:
 
 ## Answer 7: 
 > The correct option is (False).
+
 > Note:
+
 > Clustering data in BigQuery isn't always necessary due to factors such as small dataset size, frequent changes, cost considerations, query patterns and data structure. 
 
 ## (Bonus: Not worth points) Question 8:
