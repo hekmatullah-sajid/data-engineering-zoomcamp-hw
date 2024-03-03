@@ -12,3 +12,5 @@ logs/
 mage-ai.db
 mage_data/
 secrets/
+homework5/data
+homework5/.ipynb_checkpoints
