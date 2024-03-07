@@ -1,6 +1,7 @@
 -- Stream processing in SQL with RisingWave - Homework
 
 -- Create the materialized view for Question 1
+
 CREATE MATERIALIZED VIEW trip_time_stats AS
 SELECT
     tz1.Zone AS pickup_zone,
@@ -17,14 +18,13 @@ JOIN
 GROUP BY
     tz1.Zone, tz2.Zone;
 
-
-
 -- Read the data from the materialized view for Question 1
 
 SELECT * FROM trip_time_stats ORDER BY avg_trip_time DESC LIMIT 1;
 
 
 -- Create the materialized view for Question 2
+
 CREATE MATERIALIZED VIEW trip_count_time_stats AS
 SELECT
     tz1.Zone AS pickup_zone,
@@ -42,15 +42,13 @@ JOIN
 GROUP BY
     tz1.Zone, tz2.Zone;
 
-
-
 -- Read the data from the materialized view for Question 2
 
 SELECT * FROM trip_count_time_stats ORDER BY avg_trip_time DESC LIMIT 1;
 
 
-
 -- Create the materialized view for Question 3
+
 CREATE MATERIALIZED VIEW trip_busy_zones_stats AS
 SELECT
     tz.Zone AS pickup_zone,
@@ -62,12 +60,8 @@ JOIN
 
 WHERE
     tpep_pickup_datetime >= (SELECT MAX(tpep_pickup_datetime) - INTERVAL '17 hours' FROM trip_data)
-    
-    
 GROUP BY
     tz.Zone;
-
-
 
 -- Read the data from the materialized view for Question 3
 

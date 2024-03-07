@@ -121,11 +121,8 @@ FROM
     trip_data td
 JOIN
     taxi_zone tz ON td.PULocationID = tz.location_id
-
 WHERE
     tpep_pickup_datetime >= (SELECT MAX(tpep_pickup_datetime) - INTERVAL '17 hours' FROM trip_data)
-    
-    
 GROUP BY
     tz.Zone;
 
